@@ -1,11 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { Transaction } from './Transaction';
 
 import { GlobalContext } from '../context/GlobalState';
-import { DailyAmount } from './DailyAmount';
+import { DailyTransactions } from './DailyTransactions';
 
 export const TransactionList = () => {
   const { transactions, getTransactions } = useContext(GlobalContext);
+  const dates = transactions
+    .filter(
+      (transaction, i) =>
+        i === 0 ||
+        transaction.date.toDateString() !==
+          transactions[i - 1].date.toDateString()
+    )
+    .map(transaction => transaction.date.toDateString());
 
   useEffect(() => {
     getTransactions();
@@ -15,14 +22,9 @@ export const TransactionList = () => {
   return (
     <>
       <div className="row">
-        {transactions.map((transaction, i) => (
+        {dates.map(date => (
           <>
-            {(i === 0 ||
-              transaction.date.toDateString() !==
-                transactions[i - 1].date.toDateString()) && (
-              <DailyAmount key={transaction.date} date={transaction.date} />
-            )}
-            <Transaction key={transaction._id} transaction={transaction} />
+            <DailyTransactions key={date} date={date} />
           </>
         ))}
       </div>
