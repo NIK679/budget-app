@@ -48,6 +48,31 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
+  async function updateTransaction(id, transaction) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.put(
+        `/api/v1/transactions/${id}`,
+        transaction,
+        config
+      );
+
+      dispatch({
+        type: 'UPDATE_TRANSACTION',
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: 'TRANSACTION_ERROR',
+        payload: err.response.data.error,
+      });
+    }
+  }
 
   async function addTransaction(transaction) {
     const config = {
@@ -80,6 +105,7 @@ export const GlobalProvider = ({ children }) => {
         getTransactions,
         deleteTransaction,
         addTransaction,
+        updateTransaction,
       }}
     >
       {children}

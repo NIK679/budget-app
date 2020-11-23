@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import M from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import App from './App';
-import { db } from './Firebase';
-
-db.enablePersistence();
 
 document.addEventListener('DOMContentLoaded', () => {
   const elemsSelect = document.querySelectorAll('select');
@@ -20,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-unused-vars
   const instancesTimePicker = M.Timepicker.init(elemsTimePicker, {
     showClearBtn: true,
+  });
+  const elemsFAB = document.querySelectorAll('.fixed-action-btn');
+  // eslint-disable-next-line no-unused-vars
+  const instances = M.FloatingActionButton.init(elemsFAB, {
+    hoverEnabled: false,
   });
 });
 

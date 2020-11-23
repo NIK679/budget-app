@@ -8,7 +8,7 @@ export const AddTransaction = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
-  const { addTransaction } = useContext(GlobalContext);
+  const { addTransaction, updateTransaction } = useContext(GlobalContext);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export const AddTransaction = () => {
   return (
     <>
       <div className="row">
-        <form className="col s12" onSubmit={onSubmit}>
+        <form className="col s12">
           <div className="row">
             <div className="input-field col s12 form-control">
               <select onChange={e => setType(e.target.value)}>
@@ -88,7 +88,9 @@ export const AddTransaction = () => {
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <button className="btn btn-large">Submit</button>
+              <button className="btn btn-large" onClick={onSubmit}>
+                Submit
+              </button>
             </div>
           </div>
         </form>

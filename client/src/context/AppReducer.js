@@ -18,6 +18,21 @@ export default (state, action) => {
           transaction => transaction._id !== action.payload
         ),
       };
+    case 'UPDATE_TRANSACTION':
+      return {
+        ...state,
+        transactions: [
+          ...state.transactions.filter(
+            transaction => transaction._id !== action.payload._id
+          ),
+          action.payload,
+        ]
+          .map(transaction => ({
+            ...transaction,
+            date: new Date(transaction.date),
+          }))
+          .sort((a, b) => b.date - a.date),
+      };
     case 'ADD_TRANSACTION':
       return {
         ...state,
