@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import axios from 'axios';
 import AppReducer from './AppReducer';
 
@@ -15,6 +15,8 @@ export const GlobalContext = createContext(initialState);
 // Provider component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  const [updId, setUpdId] = useState('');
 
   // Actions
   async function getTransactions() {
@@ -102,6 +104,8 @@ export const GlobalProvider = ({ children }) => {
         transactions: state.transactions,
         error: state.error,
         loading: state.loading,
+        updId,
+        setUpdId,
         getTransactions,
         deleteTransaction,
         addTransaction,

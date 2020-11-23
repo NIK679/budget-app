@@ -2,13 +2,40 @@ import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 
 export const AddTransaction = () => {
+  const {
+    transactions,
+    addTransaction,
+    updateTransaction,
+    updId,
+    setUpdId,
+  } = useContext(GlobalContext);
+
+  // let transaction = {};
+  // if (updId !== '') {
+  //   transaction = transactions.filter(txn => txn._id === updId);
+  // } else {
+  //   transaction = { type: '', desc: '', amt: '', date: '', time: '' };
+  // }
+
   const [type, setType] = useState('');
   const [desc, setDesc] = useState('');
   const [amt, setAmt] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
-  const { addTransaction, updateTransaction } = useContext(GlobalContext);
+  // const [type, setType] = useState(transaction.type);
+  // const [desc, setDesc] = useState(transaction.desc);
+  // const [amt, setAmt] = useState(transaction.amt);
+  // const [date, setDate] = useState(transaction.date);
+  // const [time, setTime] = useState(transaction.time);
+
+  const clearFields = () => {
+    setType('');
+    setDesc('');
+    setAmt('');
+    setDate('');
+    setTime('');
+  };
 
   const onSubmit = e => {
     e.preventDefault();
@@ -16,20 +43,25 @@ export const AddTransaction = () => {
     if (date === '') temp = new Date();
     else if (time === '') temp = new Date(`${date}`);
     else temp = new Date(`${date} ${time}`);
-    const newTransaction = {
+    const Transaction = {
       type,
       desc,
       amt: parseInt(amt),
       date: temp,
     };
+    if (updId === '') {
+      addTransaction(Transaction);
+    } else {
+      updateTransaction(updId, Transaction);
+      setUpdId('');
+    }
+    clearFields();
+  };
 
-    addTransaction(newTransaction);
-
-    setType('');
-    setDesc('');
-    setAmt('');
-    setDate('');
-    setTime('');
+  const onCancel = e => {
+    e.preventDefault();
+    setUpdId('');
+    clearFields();
   };
 
   return (
@@ -38,7 +70,7 @@ export const AddTransaction = () => {
         <form className="col s12">
           <div className="row">
             <div className="input-field col s12 form-control">
-              <select onChange={e => setType(e.target.value)}>
+              <select value={type} onChange={e => setType(e.target.value)}>
                 <option value="" disabled selected>
                   Choose your option
                 </option>
@@ -87,9 +119,15 @@ export const AddTransaction = () => {
             </div>
           </div>
           <div className="row">
-            <div className="input-field col s12">
+            <div className="input-field col s3">
               <button className="btn btn-large" onClick={onSubmit}>
-                Submit
+                {updId === '' ? 'Submit' : 'Update'}
+              </button>
+            </div>
+
+            <div className="input-field col s9">
+              <button className="btn btn-large" onClick={onCancel}>
+                Cancel
               </button>
             </div>
           </div>

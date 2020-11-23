@@ -23,10 +23,10 @@ export const DailyTransactions = ({ date }) => {
       <div className="divider"></div>
       <div className="row">
         <br />
-        <div className="col s7">
+        <div className="col s6">
           <span>{date}</span>
         </div>
-        <div className={`col s5 ${balance >= 0 ? 'green-text' : 'red-text'}`}>
+        <div className={`col s6 ${balance >= 0 ? 'green-text' : 'red-text'}`}>
           <span>{balance}</span>
         </div>
       </div>
