@@ -10,24 +10,11 @@ export const AddTransaction = () => {
     setUpdId,
   } = useContext(GlobalContext);
 
-  // let transaction = {};
-  // if (updId !== '') {
-  //   [transaction] = transactions.filter(txn => txn._id === updId);
-  // } else {
-  //   [transaction] = { type: '', desc: '', amt: '', date: '', time: '' };
-  // }
-
   const [type, setType] = useState('');
   const [desc, setDesc] = useState('');
   const [amt, setAmt] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-
-  // const [type, setType] = useState(transaction.type);
-  // const [desc, setDesc] = useState(transaction.desc);
-  // const [amt, setAmt] = useState(transaction.amt);
-  // const [date, setDate] = useState(transaction.date);
-  // const [time, setTime] = useState(transaction.time);
 
   const clearFields = () => {
     setType('');
