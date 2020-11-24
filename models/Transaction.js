@@ -6,10 +6,10 @@ const TransactionSchema = new mongoose.Schema({
     trim: true,
     required: [true, 'Please add some type'],
   },
-  desc: {
+  descn: {
     type: String,
     trim: true,
-    required: [true, 'Please add some desc'],
+    required: [true, 'Please add some descn'],
   },
   amt: {
     type: Number,
